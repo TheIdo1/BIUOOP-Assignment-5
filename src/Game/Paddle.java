@@ -1,5 +1,6 @@
 package Game;
 
+import Geometry.Ball;
 import Geometry.Point;
 import Geometry.Rectangle;
 import Geometry.Velocity;
@@ -14,13 +15,14 @@ public class Paddle implements Sprite, Collidable {
     private biuoop.KeyboardSensor keyboard;
     private final Block delegator;
     private final Game game;
+    private final int speed = 5;
 
     // constructors
 
     /**
      * Construct paddle with given block and game instance.
      *
-     * @param game game instance that paddle will be placed in.
+     * @param game      game instance that paddle will be placed in.
      * @param delegator block object that will represent the paddle.
      */
     public Paddle(Block delegator, Game game) {
@@ -38,12 +40,11 @@ public class Paddle implements Sprite, Collidable {
         double curY = this.delegator.getUpperLeft().getY();
         double paddleWidth = this.delegator.getWidth();
         int gameWidth = this.game.getGameWidth();
-        int pxToMove = 2;
 
-        if (curX + paddleWidth - pxToMove <= 0) {
-            this.delegator.setUpperLeft(gameWidth - pxToMove, curY);
+        if (curX + paddleWidth - speed <= 0) {
+            this.delegator.setUpperLeft(gameWidth - speed, curY);
         } else {
-            this.delegator.setUpperLeft(curX - pxToMove, curY);
+            this.delegator.setUpperLeft(curX - speed, curY);
         }
     }
 
@@ -55,12 +56,11 @@ public class Paddle implements Sprite, Collidable {
         double curY = this.delegator.getUpperLeft().getY();
         double paddleWidth = this.delegator.getWidth();
         int gameWidth = this.game.getGameWidth();
-        int pxToMove = 2;
 
-        if (curX + pxToMove >= gameWidth) {
-            this.delegator.setUpperLeft(-paddleWidth + pxToMove, curY);
+        if (curX + speed >= gameWidth) {
+            this.delegator.setUpperLeft(-paddleWidth + speed, curY);
         } else {
-            this.delegator.setUpperLeft(curX + pxToMove, curY);
+            this.delegator.setUpperLeft(curX + speed, curY);
         }
     }
 
@@ -101,11 +101,12 @@ public class Paddle implements Sprite, Collidable {
     /**
      * calculates the return velocity of given object after hitting the paddle.
      *
+     * @param hitter ball that is hitting the paddle.
      * @param collisionPoint  point of collision.
      * @param currentVelocity velocity before hit.
      * @return expected velocity after hit.
      */
-    public Velocity hit(Point collisionPoint, Velocity currentVelocity) {
+    public Velocity hit(Ball hitter, Point collisionPoint, Velocity currentVelocity) {
         //calculate in what segment the ball hit
         double relativeX = collisionPoint.getX() - this.delegator.getUpperLeft().getX();
         int segment = (int) Math.floor((relativeX / this.delegator.getWidth()) * 5);

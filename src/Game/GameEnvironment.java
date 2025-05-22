@@ -39,12 +39,21 @@ public class GameEnvironment {
     /**
      * Add the given collidable to the environment.
      *
-     * @param c Game.Collidable to add.
+     * @param c Collidable to add.
      */
     public void addCollidable(Collidable c) {
         allCollideables.add(c);
     }
 
+
+    /**
+     * Removes the given collidable from the environment.
+     *
+     * @param c Collidable to remove.
+     */
+    public void removeCollidable(Collidable c) {
+        allCollideables.remove(c);
+    }
 
     /**
      * Returns the closest collision that would occur along the given trajectory,
@@ -68,5 +77,4 @@ public class GameEnvironment {
         }
         return trajectory.closestIntersectionToStartOfLine(occurringCollisions);
     }
-
 }

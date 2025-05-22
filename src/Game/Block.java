@@ -1,20 +1,24 @@
 package Game;
 
+import Geometry.Ball;
 import Geometry.Line;
 import Geometry.Point;
 import Geometry.Rectangle;
-import Utils.Utility;
 import Geometry.Velocity;
+import Utils.Utility;
 import biuoop.DrawSurface;
 
 import java.awt.Color;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * class for game blocks, represented by rectangle.
  */
-public class Block implements Collidable, Sprite {
+public class Block implements Collidable, Sprite, HitNotifier {
     //fields
     private final Rectangle delegator;
+    private List<HitListener> hitListeners;
 
     // Constructors
 
@@ -28,6 +32,7 @@ public class Block implements Collidable, Sprite {
      */
     public Block(Point upperLeft, double width, double height, Color color) {
         delegator = new Rectangle(upperLeft, width, height, color);
+        hitListeners = new ArrayList<>();
     }
 
     /**
@@ -132,7 +137,45 @@ public class Block implements Collidable, Sprite {
         return this.delegator.getUpperLeft();
     }
 
+    /**
+     * Gets the color of the block and returns it.
+     *
+     * @return Color of the block
+     */
+    public Color getColor() {
+        return delegator.getColor();
+    }
+
     // Methods
+
+
+    /**
+     * Add hl to the list of listeners to hit event.
+     *
+     * @param hl hit listener to add
+     */
+    @Override
+    public void addHitListener(HitListener hl) {
+        hitListeners.add(hl);
+    }
+
+    /**
+     * Remove hl from the list of listeners.
+     *
+     * @param hl hit listener to remove
+     */
+    @Override
+    public void removeHitListener(HitListener hl) {
+        hitListeners.remove(hl);
+    }
+
+    private void notifyHit(Ball hitter) {
+        List<HitListener> listeners = new ArrayList<HitListener>(this.hitListeners);
+        for (HitListener hl : listeners) {
+            hl.hitEvent(this, hitter);
+        }
+    }
+
 
     /**
      * @return Geometry.Rectangle that is representing the block
@@ -144,11 +187,12 @@ public class Block implements Collidable, Sprite {
     /**
      * check if given point is colliding with the block and return expected velocity after hit.
      *
+     * @param hitter the ball that is hitting the block
      * @param collisionPoint  point of collision.
      * @param currentVelocity velocity before hit.
      * @return new velocity after hit.
      */
-    public Velocity hit(Point collisionPoint, Velocity currentVelocity) {
+    public Velocity hit(Ball hitter, Point collisionPoint, Velocity currentVelocity) {
         if (currentVelocity == null) {
             return null;
         }
@@ -171,7 +215,40 @@ public class Block implements Collidable, Sprite {
             returnVelocity.setDx(-returnVelocity.getDx());
         }
 
+        if (!ballColorMatch(hitter)) {
+            this.notifyHit(hitter);
+        }
+
         return returnVelocity;
+    }
+
+    /**
+     * Checks if given ball's color is the same as block.
+     *
+     * @param ball ball to check colors with
+     * @return true if same color, false otherwise.
+     */
+    public boolean ballColorMatch(Ball ball) {
+        return this.delegator.getColor().equals(ball.getColor());
+    }
+
+    /**
+     * Removes block from the game.
+     *
+     * @param game game to remove block from
+     */
+    public void removeFromGame(Game game) {
+        game.removeCollidable(this);
+        game.removeSprite(this);
+    }
+
+    /**
+     * Add block to game.
+     *
+     * @param game game to add block to
+     */
+    public void addToGame(Game game) {
+        game.addBlock(this);
     }
 
     /**
@@ -193,4 +270,5 @@ public class Block implements Collidable, Sprite {
     public void timePassed() {
         return;
     }
+
 }

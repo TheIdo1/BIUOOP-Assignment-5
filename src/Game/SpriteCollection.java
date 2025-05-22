@@ -41,12 +41,22 @@ public class SpriteCollection {
         allSprites.add(s);
     }
 
+    /**
+     * Remove sprite from the game's sprites collection.
+     *
+     * @param s sprite to remove
+     */
+    public void removeSprite(Sprite s) {
+        allSprites.remove(s);
+    }
+
 
     /**
      * Call timePassed() on all sprites, if any sprite should do something linear with time, it will do it.
      */
     public void notifyAllTimePassed() {
-        for (Sprite curSprite : allSprites) {
+        List<Sprite> listCopy = new ArrayList<>(allSprites);
+        for (Sprite curSprite : listCopy) {
             curSprite.timePassed();
         }
     }

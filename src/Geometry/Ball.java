@@ -3,6 +3,7 @@ package Geometry;
 import Game.CollisionInfo;
 import Game.GameEnvironment;
 import Game.Sprite;
+import Game.Game;
 import biuoop.DrawSurface;
 
 import java.awt.Color;
@@ -247,11 +248,19 @@ public class Ball implements Sprite {
 
 
         this.setCenter(trajectory.pointAtDistance(closestCollision.collisionPoint(), 0.1));
-        this.setVelocity(closestCollision.collisionObject().hit(closestCollision.collisionPoint(), this.velocity));
+        this.setVelocity(closestCollision.collisionObject().hit(this, closestCollision.collisionPoint(),
+                this.velocity));
     }
 
 
-    // ---------------- Internal Utils.Utility ----------------
+    // ---------------- Game Behavior ----------------
 
-
+    /**
+     * Removes ball from the game.
+     * @param game game that is being played
+     */
+    public void removeFromGame(Game game) {
+        game.removeSprite(this);
+        this.setGameEnvironment(null);
+    }
 }

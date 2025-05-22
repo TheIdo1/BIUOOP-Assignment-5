@@ -1,5 +1,6 @@
 package Game;
 
+import Geometry.Ball;
 import Geometry.Point;
 import Geometry.Rectangle;
 import Geometry.Velocity;
@@ -11,6 +12,7 @@ import Geometry.Velocity;
 public interface Collidable {
 
     //Methods
+
     /**
      * @return the collision shape of the object.
      */
@@ -18,9 +20,11 @@ public interface Collidable {
 
     /**
      * Notify the object that we collided with it at collisionPoint with a given velocity.
-     * @param collisionPoint point of collision.
+     *
+     * @param hitter the ball that is hitting the collidable
+     * @param collisionPoint  point of collision.
      * @param currentVelocity velocity before hit.
      * @return new velocity expected after the hit.
      */
-    Velocity hit(Point collisionPoint, Velocity currentVelocity);
+    Velocity hit(Ball hitter, Point collisionPoint, Velocity currentVelocity);
 }
