@@ -27,6 +27,13 @@ public class Ass5Game {
     }
 
     private static void addAss5Game(Game g) {
+        //background
+        Color backgroundColor = Color.decode("#09b9f6");
+        Block background = new Block(g.getBorderThickness(), g.getBorderThickness(),
+                g.getGameWidth() - 2 * g.getBorderThickness(),
+                g.getGameHeight() - g.getBorderThickness(), backgroundColor);
+        g.addSprite(background);
+
         // blocks.
         Color[] colors = {
                 Color.RED,

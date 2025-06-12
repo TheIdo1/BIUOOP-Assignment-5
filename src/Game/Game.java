@@ -144,10 +144,6 @@ public class Game {
 
         this.gui = new GUI("GTA VI : Early Edition", gameWidth, gameHeight);
         this.sleeper = new Sleeper();
-        //background
-        Color backgroundColor = Color.decode("#09b9f6");
-        Block background = new Block(0, 0, gameWidth, gameHeight, backgroundColor);
-        sprites.addSprite(background);
 
         //add borders
         List<Block> borders = new ArrayList<Block>();
@@ -169,7 +165,6 @@ public class Game {
         blockHitListeners = new ArrayList<>();
         blockHitListeners.add(new ScoreTrackingListener(scoreCounter));
         blockHitListeners.add(new BlockRemover(this, remainingBlocks));
-
 
         // score indicator
         Sprite scoreIndicator = new ScoreIndicator(scoreCounter, this);
