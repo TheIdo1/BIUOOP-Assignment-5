@@ -187,7 +187,7 @@ public class Block implements Collidable, Sprite, HitNotifier {
     /**
      * check if given point is colliding with the block and return expected velocity after hit.
      *
-     * @param hitter the ball that is hitting the block
+     * @param hitter          the ball that is hitting the block
      * @param collisionPoint  point of collision.
      * @param currentVelocity velocity before hit.
      * @return new velocity after hit.
@@ -215,9 +215,7 @@ public class Block implements Collidable, Sprite, HitNotifier {
             returnVelocity.setDx(-returnVelocity.getDx());
         }
 
-        if (!ballColorMatch(hitter)) {
-            this.notifyHit(hitter);
-        }
+        this.notifyHit(hitter);
 
         return returnVelocity;
     }

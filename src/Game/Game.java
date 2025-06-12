@@ -89,6 +89,13 @@ public class Game {
         return this.gui;
     }
 
+    /**
+     *  get current game's border thickness
+     * @return game's border thickness
+     */
+    public double getBorderThickness() {
+        return borderThickness;
+    }
 
     //Methods
 
@@ -142,19 +149,6 @@ public class Game {
         Block background = new Block(0, 0, gameWidth, gameHeight, backgroundColor);
         sprites.addSprite(background);
 
-        //balls
-        Ball gameBall = new Ball(300, 500, 5, Color.BLACK, new Velocity(0, -2));
-        Ball gameBall2 = new Ball(300, 500, 5, Color.BLUE, new Velocity(1, -1));
-        Ball gameBall3 = new Ball(300, 500, 5, Color.RED, new Velocity(-1, -1));
-        this.addBall(gameBall);
-        this.addBall(gameBall2);
-        this.addBall(gameBall3);
-
-        //paddle
-        Paddle paddle = new Paddle(new Block((double) gameWidth / 2, gameHeight - borderThickness - 2,
-                (double) gameWidth / 6, 2, Color.RED), this);
-        paddle.addToGame(this);
-
         //add borders
         List<Block> borders = new ArrayList<Block>();
         borders.add(new Block(0, 0, gameWidth, borderThickness, Color.GRAY)); //top
@@ -162,7 +156,7 @@ public class Game {
         borders.add(new Block(0, 0, borderThickness, gameHeight, Color.GRAY)); //left
 
         // bottom border. is not visible, and if being touched will lead to loss.
-        Block bottomBorder = new Block(0, gameHeight, gameWidth, borderThickness, backgroundColor);
+        Block bottomBorder = new Block(0, gameHeight, gameWidth, borderThickness, Color.RED);
         HitListener deathListener = new BallRemover(this, remainingBalls);
         bottomBorder.addHitListener(deathListener);
         borders.add(bottomBorder);
@@ -173,8 +167,8 @@ public class Game {
 
         // Game Block Listeners.
         blockHitListeners = new ArrayList<>();
-        blockHitListeners.add(new BlockRemover(this, remainingBlocks));
         blockHitListeners.add(new ScoreTrackingListener(scoreCounter));
+        blockHitListeners.add(new BlockRemover(this, remainingBlocks));
 
 
         // score indicator

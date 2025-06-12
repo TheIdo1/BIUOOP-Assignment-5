@@ -24,6 +24,8 @@ public class ScoreTrackingListener implements HitListener {
      * @param hitter   the ball that is hitting the block
      */
     public void hitEvent(Block beingHit, Ball hitter) {
-        currentScore.increase(5);
+        if (!beingHit.ballColorMatch(hitter)) {
+            currentScore.increase(5);
+        }
     }
 }
