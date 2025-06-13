@@ -57,23 +57,6 @@ public class Ass5Game {
         g.addBall(gameBall2);
         g.addBall(gameBall3);
 
-
-        //temporary
-//        for (int i = 0; i < 80; i++) {
-//            int x = 5 + i * 10; // כל כדור מוזז ב-10 פיקסלים כדי שלא ייגע בחבר שלו
-//            int y = 500;
-//            int radius = 5;
-//            Color color = new Color((int)(Math.random() * 256),
-//                    (int)(Math.random() * 256),
-//                    (int)(Math.random() * 256)); // צבע רנדומלי
-//            Velocity velocity = new Velocity(0, -2); // מהירות קבועה
-//            Ball gameBall9 = new Ball(x, y, radius, color, velocity);
-//            g.addBall(gameBall9);
-//        }
-//        Paddle paddle2 = new Paddle(new Block((double) g.getGameWidth() / 2, g.getGameHeight() - g.getBorderThickness() - 2,
-//                (double) g.getGameWidth(), 2, Color.RED), g);
-//        paddle2.addToGame(g);
-
         //Paddle
         Paddle paddle = new Paddle(new Block((double) g.getGameWidth() / 2, g.getGameHeight() - g.getBorderThickness() - 2,
                 (double) g.getGameWidth() / 6, 2, Color.RED), g);
