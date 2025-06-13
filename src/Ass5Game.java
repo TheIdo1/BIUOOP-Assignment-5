@@ -50,9 +50,9 @@ public class Ass5Game {
         }
 
         //balls
-        Ball gameBall = new Ball(300, 500, 5, Color.BLACK, new Velocity(0, -2));
-        Ball gameBall2 = new Ball(300, 500, 5, Color.BLUE, new Velocity(1, -1));
-        Ball gameBall3 = new Ball(300, 500, 5, Color.RED, new Velocity(-1, -1));
+        Ball gameBall = new Ball(300, 500, 5, Color.BLACK, new Velocity(0, -4));
+        Ball gameBall2 = new Ball(300, 500, 5, Color.BLUE, new Velocity(2, -1));
+        Ball gameBall3 = new Ball(300, 500, 5, Color.RED, new Velocity(-3, -1));
         g.addBall(gameBall);
         g.addBall(gameBall2);
         g.addBall(gameBall3);
