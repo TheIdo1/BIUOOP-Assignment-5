@@ -1,18 +1,17 @@
+import Game.Block;
 import Game.Game;
+import Game.Paddle;
 import Geometry.Ball;
 import Geometry.Velocity;
-import Game.Paddle;
-import Game.Block;
-import Game.BlockFactory;
 
-import java.awt.Color;
+import java.awt.*;
 
 /**
  * Name: Ido Itzhak
  * ID: 69420
  * class that holds the main methods, run it to enjoy the game.
  */
-public class Ass5Game {
+public class CompatitionLevel {
 
     /**
      * Initialize the game and run it.
@@ -22,20 +21,20 @@ public class Ass5Game {
     public static void main(String[] args) {
         Game game = new Game();
         game.initialize();
-        addAss5Game(game);
+        addMasterPiece(game);
         game.run();
 
     }
 
-    private static void addAss5Game(Game g) {
-        //background
+    private static void addMasterPiece(Game g) {
+        //Background
         Color backgroundColor = Color.decode("#09b9f6");
-        Block background = BlockFactory.backgroundBlock(g.getBorderThickness(), g.getBorderThickness(),
+        Block background = new Block(g.getBorderThickness(), g.getBorderThickness(),
                 g.getGameWidth() - 2 * g.getBorderThickness(),
                 g.getGameHeight() - g.getBorderThickness(), backgroundColor);
         g.addSprite(background);
 
-        // blocks.
+        //Blocks
         Color[] colors = {
                 Color.RED,
                 Color.GREEN,
@@ -50,16 +49,17 @@ public class Ass5Game {
             }
         }
 
-        //balls
-        Ball gameBall = new Ball(300, 500, 5, Color.BLACK, new Velocity(0, -4));
-        Ball gameBall2 = new Ball(300, 500, 5, Color.BLUE, new Velocity(2, -1));
-        Ball gameBall3 = new Ball(300, 500, 5, Color.RED, new Velocity(-3, -1));
+        //Balls.
+        Ball gameBall = new Ball(300, 500, 5, Color.BLACK, new Velocity(0, -2));
+        Ball gameBall2 = new Ball(300, 500, 5, Color.BLUE, new Velocity(1, -1));
+        Ball gameBall3 = new Ball(300, 500, 5, Color.RED, new Velocity(-1, -1));
         g.addBall(gameBall);
         g.addBall(gameBall2);
         g.addBall(gameBall3);
 
         //Paddle
-        Paddle paddle = new Paddle(BlockFactory.paddleBlock((double) g.getGameWidth() / 2, g.getGameHeight() - g.getBorderThickness() - 2,
+        Paddle paddle = new Paddle(new Block((double) g.getGameWidth() / 2,
+                g.getGameHeight() - g.getBorderThickness() - 2,
                 (double) g.getGameWidth() / 6, 2, Color.RED), g);
         paddle.addToGame(g);
     }

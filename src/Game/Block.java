@@ -7,6 +7,7 @@ import Geometry.Rectangle;
 import Geometry.Velocity;
 import Utils.Utility;
 import biuoop.DrawSurface;
+import jdk.jshell.execution.Util;
 
 import java.awt.Color;
 import java.util.ArrayList;
@@ -19,6 +20,10 @@ public class Block implements Collidable, Sprite, HitNotifier {
     //fields
     private final Rectangle delegator;
     private List<HitListener> hitListeners;
+    private Boolean drawOutline = true;
+    private Boolean drawShades = true;
+    private Boolean drawDecorations = true;
+
 
     // Constructors
 
@@ -146,6 +151,60 @@ public class Block implements Collidable, Sprite, HitNotifier {
         return delegator.getColor();
     }
 
+    /**
+     * Gets the state of DrawOutLine
+     *
+     * @return true if draws outline, false otherwise.
+     */
+    public Boolean getDrawOutline() {
+        return drawOutline;
+    }
+
+    /**
+     * Sets the draw outline status of a block.
+     *
+     * @param drawOutline true or false, according to wanted state.
+     */
+    public void setDrawOutline(Boolean drawOutline) {
+        this.drawOutline = drawOutline;
+    }
+
+    /**
+     * Gets the state of DrawShades
+     *
+     * @return true if draws shades, false otherwise.
+     */
+    public Boolean getDrawShades() {
+        return drawShades;
+    }
+
+    /**
+     * Sets the draw shades status of a block.
+     *
+     * @param drawShades true or false, according to wanted state.
+     */
+    public void setDrawShades(Boolean drawShades) {
+        this.drawShades = drawShades;
+    }
+
+    /**
+     * Gets the state of DrawDecorations
+     *
+     * @return true if draws decorations, false otherwise.
+     */
+    public Boolean getDrawDecorations() {
+        return drawDecorations;
+    }
+
+    /**
+     * Sets the draw decorations status of a block.
+     *
+     * @param drawDecorations true or false, according to wanted state.
+     */
+    public void setDrawDecorations(Boolean drawDecorations) {
+        this.drawDecorations = drawDecorations;
+    }
+
     // Methods
 
 
@@ -255,10 +314,45 @@ public class Block implements Collidable, Sprite, HitNotifier {
      * @param drawSurface drawSurface to draw on.
      */
     public void drawOn(DrawSurface drawSurface) {
+        Point cord = this.delegator.getUpperLeft();
+        int height = (int) this.delegator.getHeight();
+        int width = (int) this.delegator.getWidth();
+        int x = (int) cord.getX();
+        int y = (int) cord.getY() + 1;
+
+        //fill color
         delegator.drawOn(drawSurface);
-        drawSurface.setColor(Color.BLACK);
-        drawSurface.drawRectangle((int) this.getUpperLeft().getX(), (int) this.getUpperLeft().getY(),
-                (int) this.getWidth(), (int) this.getHeight());
+
+
+        //shades
+        if (drawShades) {
+            //Bright
+            drawSurface.setColor(Utility.getBrighterColor(this.getColor()));
+
+            //top
+            drawSurface.fillRectangle(x, y, width, (int) (height * 0.2));
+
+            //left
+            drawSurface.fillRectangle(x, y, (int) (width*0.1), height);
+
+            //Dark
+            drawSurface.setColor(Utility.getDarkerColor(this.getColor()));
+
+            //bot
+            drawSurface.fillRectangle(x, (int) (y + (height * 0.8)), (width), (int) (height * 0.2));
+
+            //right
+            drawSurface.fillRectangle((int) (x + (width * 0.9)), y, (int) (width * 0.1), (height));
+        }
+
+        //Decoration
+
+        //outline
+        if (this.drawOutline) {
+            drawSurface.setColor(Color.BLACK);
+            drawSurface.drawRectangle((int) this.getUpperLeft().getX(), (int) this.getUpperLeft().getY(),
+                    (int) this.getWidth(), (int) this.getHeight());
+        }
     }
 
 

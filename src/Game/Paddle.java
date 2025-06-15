@@ -27,6 +27,7 @@ public class Paddle implements Sprite, Collidable {
      */
     public Paddle(Block delegator, Game game) {
         this.delegator = delegator;
+        this.delegator.setDrawDecorations(false);
         this.game = game;
         keyboard = game.getGui().getKeyboardSensor();
     }

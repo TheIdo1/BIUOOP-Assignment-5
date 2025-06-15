@@ -68,4 +68,19 @@ public final class Utility {
         Random random = new Random();
         return new Color(random.nextInt(255), random.nextInt(255), random.nextInt(255));
     }
+
+    public static Color getDarkerColor(Color c){
+        double r = c.getRed() * 0.7;
+        double g = c.getGreen() * 0.7;
+        double b = c.getBlue() * 0.7;
+        return new Color((int) r, (int) g, (int) b);
+    }
+
+
+    public static Color getBrighterColor(Color c){
+        double r = c.getRed() + ((255-c.getRed()) * 0.3);
+        double g = c.getGreen() + ((255-c.getGreen()) * 0.3);
+        double b = c.getBlue() + ((255-c.getBlue()) * 0.3);
+        return new Color((int) r, (int) g, (int) b);
+    }
 }

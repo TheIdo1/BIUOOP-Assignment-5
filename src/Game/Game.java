@@ -147,12 +147,12 @@ public class Game {
 
         //add borders
         List<Block> borders = new ArrayList<Block>();
-        borders.add(new Block(0, 0, gameWidth, borderThickness, Color.GRAY)); //top
-        borders.add(new Block(gameWidth - borderThickness, 0, borderThickness, gameHeight, Color.GRAY)); //right
-        borders.add(new Block(0, 0, borderThickness, gameHeight, Color.GRAY)); //left
+        borders.add(BlockFactory.borderBlock(0, 0, gameWidth, borderThickness, Color.GRAY)); //top
+        borders.add(BlockFactory.borderBlock(gameWidth - borderThickness, 0, borderThickness, gameHeight, Color.GRAY)); //right
+        borders.add(BlockFactory.borderBlock(0, 0, borderThickness, gameHeight, Color.GRAY)); //left
 
         // bottom border. is not visible, and if being touched will lead to loss.
-        Block bottomBorder = new Block(0, gameHeight, gameWidth, borderThickness, Color.RED);
+        Block bottomBorder = BlockFactory.borderBlock(0, gameHeight, gameWidth, borderThickness, Color.RED);
         HitListener deathListener = new BallRemover(this, remainingBalls);
         bottomBorder.addHitListener(deathListener);
         borders.add(bottomBorder);
@@ -229,7 +229,7 @@ public class Game {
         double newX = borderThickness + x * blockWidth;
         double newY = borderThickness + y * blockHeight;
 
-        Block toAdd = new Block(newX, newY, blockWidth, blockHeight, color);
+        Block toAdd = BlockFactory.gameBlock(newX, newY, blockWidth, blockHeight, color);
 
         // listeners
         for (HitListener hl : blockHitListeners) {
@@ -239,6 +239,18 @@ public class Game {
         // add to environments
         this.addBlock(toAdd);
     }
+
+
+    public void generateCosmeticRectangle(){
+
+
+    }
+
+    public void generateCosmeticCircle(){
+
+    }
+
+
 
     /**
      * Add block to game.
