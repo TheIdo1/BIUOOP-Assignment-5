@@ -241,17 +241,6 @@ public class Game {
     }
 
 
-    public void generateCosmeticRectangle(){
-
-
-    }
-
-    public void generateCosmeticCircle(){
-
-    }
-
-
-
     /**
      * Add block to game.
      *
