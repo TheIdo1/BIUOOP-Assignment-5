@@ -2,6 +2,8 @@ package Game;
 
 import biuoop.DrawSurface;
 
+import java.awt.Color;
+
 /**
  * In Charge of displaying the score.
  */
@@ -30,6 +32,7 @@ public class ScoreIndicator implements Sprite {
     public void drawOn(DrawSurface d) {
         int x = (game.getGameWidth() / 2) - 50;
         int y = 17;
+        d.setColor(Color.BLACK);
         d.drawText(x, y, "Score: " + scoreCounter.getValue(), 20);
     }
 
