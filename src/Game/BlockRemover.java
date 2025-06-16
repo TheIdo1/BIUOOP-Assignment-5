@@ -1,6 +1,7 @@
 package Game;
 
 import Geometry.Ball;
+import Geometry.Velocity;
 
 /**
  * a BlockRemover is in charge of removing blocks from the game, as well as keeping count
@@ -34,6 +35,9 @@ public class BlockRemover implements HitListener {
             beingHit.removeFromGame(game);
             remainingBlocks.decrease(1);
             hitter.setColor(beingHit.getColor());
+            Velocity v = Velocity.fromAngleAndSpeed(hitter.getVelocity().getAngle(),
+                    hitter.getVelocity().getSpeed() + 0.2);
+            hitter.setVelocity(v);
         }
     }
 }

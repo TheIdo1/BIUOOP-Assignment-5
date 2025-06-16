@@ -30,9 +30,9 @@ public class Ass5Game {
     private static void addAss5Game(Game g) {
         //background
         Color backgroundColor = Color.decode("#09b9f6");
-        Block background = BlockFactory.backgroundBlock(g.getBorderThickness(), g.getBorderThickness(),
-                g.getGameWidth() - 2 * g.getBorderThickness(),
-                g.getGameHeight() - g.getBorderThickness(), backgroundColor);
+        Block background = BlockFactory.backgroundBlock(g.getBorderThickness() + 1, g.getBorderThickness() + 1,
+                (g.getGameWidth() - 2 * g.getBorderThickness()) - 1,
+                (g.getGameHeight() - g.getBorderThickness()) - 1, backgroundColor);
         g.addSprite(background);
 
         // blocks.
